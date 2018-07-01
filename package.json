@@ -4,7 +4,8 @@
   "description": "An experiment with Tensorflow, Bizhawk emulation, and TASing",
   "main": "index.js",
   "dependencies": {
-    "prebuild-install": "^4.0.0"
+    "prebuild-install": "^4.0.0",
+    "robotjs": "^0.5.1"
   },
   "devDependencies": {},
   "scripts": {
