@@ -1,0 +1,30 @@
+{
+  "name": "tas-deep-learning-innindo",
+  "version": "1.0.0",
+  "description": "An experiment with Tensorflow, Bizhawk emulation, and TASing",
+  "main": "index.js",
+  "dependencies": {
+    "prebuild-install": "^4.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chozandrias76/TAS-Deep-Learning---Innindo.git"
+  },
+  "keywords": [
+    "TAS",
+    "Deep",
+    "Learning",
+    "SNES",
+    "Bizhawk"
+  ],
+  "author": "Colin Swenson-Healey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chozandrias76/TAS-Deep-Learning---Innindo/issues"
+  },
+  "homepage": "https://github.com/chozandrias76/TAS-Deep-Learning---Innindo#readme"
+}
