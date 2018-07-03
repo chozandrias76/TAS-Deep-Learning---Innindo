@@ -1,5 +1,28 @@
 var robot = require("robotjs");
 var fs = require("fs")
+var robot = require("robotjs");
+var Jimp = require("jimp");
+
+var dt = new Date();
+
+import * as tf from '@tensorflow/tfjs';
+
+// Define a model for linear regression.
+const model = tf.sequential();
+model.add(tf.layers.dense({units: 1, inputShape: [1]}));
+
+// Prepare the model for training: Specify the loss and the optimizer.
+model.compile({loss: 'meanSquaredError', optimizer: 'sgd'});
+
+// Generate some synthetic data for training.
+const xs = tf.tensor2d([1, 2, 3, 4], [4, 1]);
+const ys = tf.tensor2d([1, 3, 5, 7], [4, 1]);
+
+// Train the model using the data.
+model.fit(xs, ys, {epochs: 10}).then(() => {
+  // Use the model to do inference on a data point the model hasn't seen before:
+  model.predict(tf.tensor2d([5], [1, 1])).print();
+});
 
 // Speed up the mouse.
 // robot.setMouseDelay(2);
@@ -25,35 +48,64 @@ var fs = require("fs")
 // robot.keyTap("enter");
 
 // Get pixel color under the mouse.
-var robot = require("robotjs");
 
 // Get mouse position.
-var mouse = robot.getMousePos();
+// var mouse = robot.getMousePos();
 
 // Get pixel color in hex format.
 // var hex;
 // hex = robot.getPixelColor(mouse.x, mouse.y);
 // console.log("#" + hex + " at x:" + mouse.x + " y:" + mouse.y);
-var Jimp = require("jimp");
 
-var dt = new Date();
+// const { execFile } = require('child_process');
 
-const fullDate = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate() + "/";
-for(var i = (new Date().getSeconds()); (new Date().getSeconds()) <= (dt.getSeconds()+10); i++){
-	var screen = robot.screen.capture(0,0,1920,1080);
+// const child = execFile('./Bizhawk/output/EmuHawk.exe', [''], (error, stdout, stderr) => {
+// 	if (error) {
+// 	  throw error;
+// 	}
+// 	console.log(stdout);
+//   });
 
-	var image = new Jimp(screen.width, screen.height, function(err, img) {
-	img.bitmap.data = screen.image;
-	img.scan(0, 0, img.bitmap.width, img.bitmap.height, function (x, y, idx) {
-		var red   = img.bitmap.data[ idx + 0 ];
-		var blue  = img.bitmap.data[ idx + 2 ];
-		img.bitmap.data[ idx + 0 ] = blue;
-		img.bitmap.data[ idx + 2 ] = red;
+// const util = require('util');
+// const execFile = util.promisify(require('child_process').execFile);
+
+// async function getVersion() {
+//   const { stdout } = await execFile('./Bizhawk/output/EmuHawk.exe', ['--load-rom']);
+
+//   	var screen = robot.screen.capture(0,0,1920,1080);
+
+//     var image = new Jimp(screen.width, screen.height, function(err, img) {
+//     img.bitmap.data = screen.image;
+//     img.scan(0, 0, img.bitmap.width, img.bitmap.height, function (x, y, idx) {
+//       var red   = img.bitmap.data[ idx + 0 ];
+//       var blue  = img.bitmap.data[ idx + 2 ];
+//       img.bitmap.data[ idx + 0 ] = blue;
+//       img.bitmap.data[ idx + 2 ] = red;
+      
+//     });
+//     img.write("./images/" + fullDate + "/ right monitor " + (new Date().getHours()) + "-" + (new Date().getMinutes()) + "-" + (new Date().getSeconds()) + '.png');
+// });
+// console.log(stdout);
+// }
+// getVersion();
+
+// const fullDate = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate() + "/";
+// for(var i = (dt.getSeconds()); i < (dt.getSeconds()+10); i++){
+//   var start = (new Date().getTime());
+//   var screen = robot.screen.capture(0,0,1920,1080);
+// 	var image = new Jimp(screen.width, screen.height, function(err, img) {
+// 	img.bitmap.data = screen.image;
+// 	img.scan(0, 0, img.bitmap.width, img.bitmap.height, function (x, y, idx) {
+// 		var red   = img.bitmap.data[ idx + 0 ];
+// 		var blue  = img.bitmap.data[ idx + 2 ];
+// 		img.bitmap.data[ idx + 0 ] = blue;
+// 		img.bitmap.data[ idx + 2 ] = red;
 		
-	});
-	if(i & 1){
-		img.write("./images/" + fullDate + "/ right monitor " + (new Date().getHours()) + "-" + (new Date().getMinutes()) + "-" + (new Date().getSeconds()) + '.png');
-	}
+//   });
+//   console.log((new Date().getTime()-start)/60);
+// 	if(i & 1){
+// 		img.write("./images/" + fullDate + "/ right monitor " + new Date().getTime() + '.png');
+// 	}
 	
-	});
-}
+// 	});
+// }
